@@ -2,22 +2,19 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_task/models/Users.dart';
-import 'package:flutter_task/screen/side_nav.dart';
-import 'package:flutter_task/screen/subs.dart';
 import './login.dart';
 import './sign_up.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_task/network_utils/api.dart';
 import 'package:flutter_task/network_utils/services.dart';
-import 'side_nav.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class Subs extends StatefulWidget {
+  const Subs({Key? key}) : super(key: key);
   @override
-  _HomeState createState() => _HomeState();
+  _SubsState createState() => _SubsState();
 }
 
-class _HomeState extends State<Home> {
+class _SubsState extends State<Subs> {
   List<User> _users = [];
   bool _loading = false;
 
@@ -25,11 +22,11 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     _loading = true;
-    _getAdmins();
+    _getSubs();
   }
 
-  _getAdmins() async {
-    var res = await Network().getPublicData('/users/admins').then((users) {
+  _getSubs() async {
+    var res = await Network().getPublicData('/users/subs').then((users) {
       setState(() {
         _users = users;
         print(_users.length);
@@ -46,9 +43,25 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Sidenav(),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: Text('UserName'),
+              accountEmail: Text('UserEmail'),
+              decoration: BoxDecoration(color: Colors.orange[900]),
+            ),
+            ListTile(
+              leading: Icon(Icons.account_box),
+              title: Text('Related Users'),
+              onTap: () => Subs(),
+            )
+          ],
+        ),
+      ),
       appBar: AppBar(
-        title: Text(_loading ? 'Loading...' : 'Admins List'),
+        title: Text(_loading ? 'Loading...' : 'subordinates list'),
         backgroundColor: Colors.orange[900],
       ),
       body: Container(

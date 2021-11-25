@@ -34,6 +34,7 @@ dependencies:
   dio: ^4.0.0
   dio_cookie_manager: ^2.0.0
   json_annotation: ^4.0.1
+  form_validation: ^2.0.0+2
   # flutter_session: ^0.1.1
 
 

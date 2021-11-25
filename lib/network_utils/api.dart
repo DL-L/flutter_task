@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:cookie_jar/cookie_jar.dart';
+import 'package:flutter_task/models/Users.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_task/models/Users.dart';
 
 class SingletonDio {
   static var cookiemanager = CookieManager(CookieJar());
@@ -23,22 +25,32 @@ class Network {
     var fullUrl = _url + apiUrl;
     var response =
         await SingletonDio.getDio().post(fullUrl, data: jsonEncode(data));
-    // print(response);
+    print(response.headers);
     return response; // return json.decode(response.body)
   }
 
-  getPublicData(apiUrl) async {
-    var response =
-        await SingletonDio.getDio().get(_url + apiUrl + await _getToken());
-    return response;
+  Future<List<User>> getPublicData(apiUrl) async {
+    try {
+      var response = await SingletonDio.getDio().get(_url + apiUrl,
+          options: Options(headers: {"Authorization": "Bearer $_getToken()"}));
+      if (response.statusCode == 200) {
+        List<User> users =
+            (response.data as List).map((x) => User.fromJson(x)).toList();
+        return users;
+      } else {
+        return <User>[];
+      }
+    } catch (error, stacktrace) {
+      throw Exception("Exception occured: $error stacktrace: $stacktrace");
+    }
   }
 
-  Map<String, String> _setHeaders = {
-    'Content-Type': 'application/json',
-    'Charset': 'utf-8',
-    'Accept': 'application/json',
-    // 'Cookie': 'cookie'
-  };
+  // Map<String, String> _setHeaders = {
+  //   'Content-Type': 'application/json',
+  //   'Charset': 'utf-8',
+  //   'Accept': 'application/json',
+  //   // 'Cookie': 'cookie'
+  // };
 
   _getToken() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
