@@ -9,9 +9,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_task/network_utils/api.dart';
 import 'package:flutter_task/network_utils/services.dart';
 
-import 'home.dart';
+import 'admins.dart';
 
-class Sidenav extends StatelessWidget {
+class BottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -47,8 +47,8 @@ class Sidenav extends StatelessWidget {
             leading: Icon(Icons.account_circle),
             contentPadding: EdgeInsets.fromLTRB(30, 1, 16, 1),
             onTap: () {
-              Navigator.push(
-                  context, new MaterialPageRoute(builder: (context) => Home()));
+              Navigator.push(context,
+                  new MaterialPageRoute(builder: (context) => Admins()));
             },
           ),
           ListTile(

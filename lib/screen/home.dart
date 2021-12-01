@@ -1,15 +1,20 @@
 import 'dart:convert';
 
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_task/models/Users.dart';
-import 'package:flutter_task/screen/side_nav.dart';
+import 'package:flutter_task/screen/add_task.dart';
+import 'package:flutter_task/screen/admins.dart';
+import 'package:flutter_task/screen/bottom_nav.dart';
+import 'package:flutter_task/screen/sent_tasks.dart';
 import 'package:flutter_task/screen/subs.dart';
+import 'package:flutter_task/screen/todo.dart';
 import './login.dart';
 import './sign_up.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_task/network_utils/api.dart';
 import 'package:flutter_task/network_utils/services.dart';
-import 'side_nav.dart';
+import 'bottom_nav.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -18,50 +23,64 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  List<User> _users = [];
-  bool _loading = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _loading = true;
-    _getAdmins();
-  }
-
-  _getAdmins() async {
-    var res = await Network().getPublicData('/users/admins').then((users) {
-      setState(() {
-        _users = users;
-        print(_users.length);
-        _loading = false;
-      });
-    });
-    // print(res.length);
-    // print(res[0]);
-    return res;
-    // var body = json.decode(res);
-    // print(body);
-  }
+  int index = 2;
+  final navigationKey = GlobalKey<CurvedNavigationBarState>();
+  final screens = [
+    Admins(),
+    Subs(),
+    AddTask(),
+    Todo(),
+    SentTasks(),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: Sidenav(),
-      appBar: AppBar(
-        title: Text(_loading ? 'Loading...' : 'Admins List'),
-        backgroundColor: Colors.orange[900],
+    final items = <Widget>[
+      Icon(
+        Icons.account_box_outlined,
+        size: 30,
       ),
-      body: Container(
-        color: Colors.white,
-        child: ListView.builder(
-            itemCount: null == _users ? 0 : _users.length,
-            itemBuilder: (context, index) {
-              User user = _users[index];
-              return ListTile(
-                title: Text(user.email),
-                subtitle: Text(user.phoneNumber),
-              );
-            }),
+      Icon(
+        Icons.account_box,
+        size: 30,
+      ),
+      Icon(
+        Icons.add,
+        size: 30,
+      ),
+      Icon(
+        Icons.task_alt,
+        size: 30,
+      ),
+      Icon(
+        Icons.task,
+        size: 30,
+      ),
+    ];
+
+    return Container(
+      color: Colors.orange[900],
+      child: SafeArea(
+        top: false,
+        child: Scaffold(
+          // bottomNavigationBar: BottomNav(),
+          body: screens[index],
+          bottomNavigationBar: Theme(
+            data: Theme.of(context)
+                .copyWith(iconTheme: IconThemeData(color: Colors.brown[900])),
+            child: CurvedNavigationBar(
+              key: navigationKey,
+              items: items,
+              height: 60,
+              index: index,
+              onTap: (index) => setState(() => this.index = index),
+              backgroundColor: Colors.orange.shade50,
+              color: Colors.orange.shade900,
+              buttonBackgroundColor: Colors.orange,
+              animationDuration: Duration(milliseconds: 300),
+            ),
+          ),
+        ),
       ),
     );
   }

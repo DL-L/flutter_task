@@ -35,6 +35,9 @@ dependencies:
   dio_cookie_manager: ^2.0.0
   json_annotation: ^4.0.1
   form_validation: ^2.0.0+2
+  curved_navigation_bar: ^1.0.1
+  community_material_icon: ^5.9.55
+  flutter_local_notifications: ^9.1.4
   # flutter_session: ^0.1.1
 
 

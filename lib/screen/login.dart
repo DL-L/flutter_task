@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import './home.dart';
+import 'package:flutter_task/screen/home.dart';
+import 'admins.dart';
 import './sign_up.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_task/network_utils/api.dart';
@@ -16,20 +17,6 @@ class _LoginState extends State<Login> {
 
   var userData;
   var code;
-
-  _showMsg(msg) {
-    //
-    final snackBar = SnackBar(
-      content: Text(msg),
-      action: SnackBarAction(
-        label: 'Close',
-        onPressed: () {
-          // Some code to undo the change!
-        },
-      ),
-    );
-    Scaffold.of(context).showSnackBar(snackBar);
-  }
 
   @override
   void initState() {
@@ -154,28 +141,30 @@ class _LoginState extends State<Login> {
 
     var data = {
       'code': codeController.text,
-      // 'code_sent': code,
-      // 'phone_number': userData,
     };
 
-    // print(data);
     var res = await Network().postData(data, '/user/auth');
-    print(res);
-    // var body = json.decode(res.body);
-    // print(res.body);
-    if (res.data['success']) {
-      SharedPreferences localStorage = await SharedPreferences.getInstance();
-      var user = res.data['user'];
-      var userDecode = json.encode(user);
-      localStorage.setString('user', userDecode);
-      localStorage.setString('token', res.data['access_token']);
-      // print(user['id']);
-      var token = localStorage.getString('token');
-      print(token);
-      Navigator.push(
-          context, new MaterialPageRoute(builder: (context) => Home()));
-    } else {
-      _showMsg('Code is invalid');
+    // print(res);
+
+    try {
+      if (res.data['success']) {
+        SharedPreferences localStorage = await SharedPreferences.getInstance();
+        var user = res.data['user'];
+        var userDecode = json.encode(user);
+        localStorage.setString('user', userDecode);
+        localStorage.setString('token', res.data['access_token']);
+        // print(user['id']);
+        var token = localStorage.getString('token');
+        print(token);
+        Navigator.push(
+            context, new MaterialPageRoute(builder: (context) => Home()));
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('The code is incorrect'),
+        ),
+      );
     }
 
     setState(() {

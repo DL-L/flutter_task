@@ -1,20 +1,27 @@
 import 'dart:convert';
 
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_task/models/Users.dart';
+import 'package:flutter_task/screen/add_task.dart';
+import 'package:flutter_task/screen/bottom_nav.dart';
+import 'package:flutter_task/screen/subs.dart';
+import 'package:flutter_task/screen/todo.dart';
+import 'package:flutter_task/screen/sent_tasks.dart';
 import './login.dart';
 import './sign_up.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_task/network_utils/api.dart';
 import 'package:flutter_task/network_utils/services.dart';
+import 'bottom_nav.dart';
 
-class Subs extends StatefulWidget {
-  const Subs({Key? key}) : super(key: key);
+class Admins extends StatefulWidget {
+  const Admins({Key? key}) : super(key: key);
   @override
-  _SubsState createState() => _SubsState();
+  _AdminsState createState() => _AdminsState();
 }
 
-class _SubsState extends State<Subs> {
+class _AdminsState extends State<Admins> {
   List<User> _users = [];
   bool _loading = false;
 
@@ -22,11 +29,11 @@ class _SubsState extends State<Subs> {
   void initState() {
     super.initState();
     _loading = true;
-    _getSubs();
+    _getAdmins();
   }
 
-  _getSubs() async {
-    var res = await Network().getPublicData('/users/subs').then((users) {
+  _getAdmins() async {
+    var res = await Network().getPublicData('/users/admins').then((users) {
       setState(() {
         _users = users;
         print(_users.length);
@@ -43,25 +50,8 @@ class _SubsState extends State<Subs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            UserAccountsDrawerHeader(
-              accountName: Text('UserName'),
-              accountEmail: Text('UserEmail'),
-              decoration: BoxDecoration(color: Colors.orange[900]),
-            ),
-            ListTile(
-              leading: Icon(Icons.account_box),
-              title: Text('Related Users'),
-              onTap: () => Subs(),
-            )
-          ],
-        ),
-      ),
       appBar: AppBar(
-        title: Text(_loading ? 'Loading...' : 'subordinates list'),
+        title: Text(_loading ? 'Loading...' : 'Admins List'),
         backgroundColor: Colors.orange[900],
       ),
       body: Container(
