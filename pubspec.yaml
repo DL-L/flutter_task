@@ -37,7 +37,13 @@ dependencies:
   form_validation: ^2.0.0+2
   curved_navigation_bar: ^1.0.1
   community_material_icon: ^5.9.55
-  flutter_local_notifications: ^9.1.4
+  # flutter_local_notifications: ^9.1.4
+  google_fonts: ^2.1.0
+  intl: ^0.17.0
+  get: ^4.5.1
+  date_picker_timeline: ^1.2.3
+  flutter_staggered_animations: ^1.0.0
+
   # flutter_session: ^0.1.1
 
 

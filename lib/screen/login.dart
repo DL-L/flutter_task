@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_task/screen/home.dart';
+import 'package:flutter_task/screen/home_page.dart';
 import 'admins.dart';
 import './sign_up.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -52,9 +53,9 @@ class _LoginState extends State<Login> {
                   end: Alignment.bottomRight,
                   stops: [0.0, 0.4, 0.9],
                   colors: [
-                    Color(0xFFFF835F),
-                    Color(0xFFFC663C),
-                    Color(0xFFFF3F1A),
+                    Colors.greenAccent,
+                    Colors.blueAccent,
+                    Colors.purpleAccent,
                   ],
                 ),
               ),
@@ -113,7 +114,7 @@ class _LoginState extends State<Login> {
                                       ),
                                     ),
                                   ),
-                                  color: Colors.red,
+                                  color: Colors.purpleAccent,
                                   disabledColor: Colors.grey,
                                   shape: new RoundedRectangleBorder(
                                       borderRadius:
@@ -157,7 +158,7 @@ class _LoginState extends State<Login> {
         var token = localStorage.getString('token');
         print(token);
         Navigator.push(
-            context, new MaterialPageRoute(builder: (context) => Home()));
+            context, new MaterialPageRoute(builder: (context) => HomePage()));
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(

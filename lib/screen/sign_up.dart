@@ -32,9 +32,9 @@ class _SignUpState extends State<SignUp> {
                   end: Alignment.bottomRight,
                   stops: [0.0, 0.4, 0.9],
                   colors: [
-                    Color(0xFFFF835F),
-                    Color(0xFFFC663C),
-                    Color(0xFFFF3F1A),
+                    Colors.greenAccent,
+                    Colors.blueAccent,
+                    Colors.purpleAccent,
                   ],
                 ),
               ),
@@ -112,7 +112,7 @@ class _SignUpState extends State<SignUp> {
                                           ),
                                         ),
                                       ),
-                                      color: Colors.red,
+                                      color: Colors.purpleAccent,
                                       disabledColor: Colors.grey,
                                       shape: new RoundedRectangleBorder(
                                           borderRadius:

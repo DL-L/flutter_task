@@ -52,7 +52,7 @@ class _SentTasksState extends State<SentTasks> {
     return Scaffold(
       appBar: AppBar(
         title: Text(_loading ? 'Loading...' : 'Sent Tasks'),
-        backgroundColor: Colors.orange[900],
+        backgroundColor: Colors.purpleAccent,
       ),
       body: Container(
         color: Colors.orange[50],

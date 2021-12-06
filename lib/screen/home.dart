@@ -4,6 +4,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_task/models/Users.dart';
 import 'package:flutter_task/screen/add_task.dart';
+import 'package:flutter_task/screen/addtask.dart';
 import 'package:flutter_task/screen/admins.dart';
 import 'package:flutter_task/screen/bottom_nav.dart';
 import 'package:flutter_task/screen/sent_tasks.dart';
@@ -28,7 +29,7 @@ class _HomeState extends State<Home> {
   final screens = [
     Admins(),
     Subs(),
-    AddTask(),
+    AddTaskPage(),
     Todo(),
     SentTasks(),
   ];
@@ -37,11 +38,11 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final items = <Widget>[
       Icon(
-        Icons.account_box_outlined,
+        Icons.person,
         size: 30,
       ),
       Icon(
-        Icons.account_box,
+        Icons.person_outline_outlined,
         size: 30,
       ),
       Icon(
@@ -59,7 +60,7 @@ class _HomeState extends State<Home> {
     ];
 
     return Container(
-      color: Colors.orange[900],
+      color: Colors.purpleAccent,
       child: SafeArea(
         top: false,
         child: Scaffold(
@@ -67,16 +68,16 @@ class _HomeState extends State<Home> {
           body: screens[index],
           bottomNavigationBar: Theme(
             data: Theme.of(context)
-                .copyWith(iconTheme: IconThemeData(color: Colors.brown[900])),
+                .copyWith(iconTheme: IconThemeData(color: Colors.black)),
             child: CurvedNavigationBar(
               key: navigationKey,
               items: items,
               height: 60,
               index: index,
               onTap: (index) => setState(() => this.index = index),
-              backgroundColor: Colors.orange.shade50,
-              color: Colors.orange.shade900,
-              buttonBackgroundColor: Colors.orange,
+              backgroundColor: Colors.white,
+              color: Colors.deepPurple,
+              buttonBackgroundColor: Colors.purpleAccent,
               animationDuration: Duration(milliseconds: 300),
             ),
           ),

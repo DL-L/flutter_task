@@ -103,26 +103,42 @@ class _AddTaskState extends State<AddTask> {
                           Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: FlatButton(
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 8, bottom: 8, left: 10, right: 10),
-                                  child: Text(
-                                    'Send Task',
-                                    textDirection: TextDirection.ltr,
-                                    style: TextStyle(
-                                      color: Colors.brown[900],
-                                      fontSize: 15.0,
-                                      decoration: TextDecoration.none,
-                                      fontWeight: FontWeight.normal,
-                                    ),
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    top: 8, bottom: 8, left: 10, right: 10),
+                                child: Text(
+                                  'Send Task',
+                                  textDirection: TextDirection.ltr,
+                                  style: TextStyle(
+                                    color: Colors.brown[900],
+                                    fontSize: 15.0,
+                                    decoration: TextDecoration.none,
+                                    fontWeight: FontWeight.normal,
                                   ),
                                 ),
-                                color: Colors.orange,
-                                disabledColor: Colors.orangeAccent,
-                                shape: new RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(20.0)),
-                                onPressed: _loading ? null : _addTask),
+                              ),
+                              color: Colors.orange,
+                              disabledColor: Colors.orangeAccent,
+                              shape: new RoundedRectangleBorder(
+                                  borderRadius:
+                                      new BorderRadius.circular(20.0)),
+                              onPressed: _loading ? null : _addTask,
+                              // AlertDialog(
+                              //   title: Text('Success'),
+                              //   content: Text(
+                              //       'The task has been created successfully'),
+                              //   elevation: 24.0,
+                              //   backgroundColor: Colors.orange[50],
+                              //   shape: CircleBorder(),
+                              // );
+
+                              //
+
+                              // NotificationApi.showNotification(
+                              //     title: 'Success',
+                              //     body:
+                              //         'The task has been created successfully')
+                            ),
                           ),
                         ],
                       ),
